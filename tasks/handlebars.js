@@ -102,7 +102,7 @@ module.exports = function(grunt) {
 
           // if configured to, wrap template in Handlebars.template call
           if (options.wrapped === true) {
-            if (options.amd === true) {
+            if (options.amd) {
                compiled = 'Handlebars.default.template('+compiled+')';
              }
              else {
@@ -118,7 +118,7 @@ module.exports = function(grunt) {
         if (partialsPathRegex.test(filepath) && isPartial.test(_.last(filepath.split('/')))) {
           filename = processPartialName(filepath);
           // use the correct method if using AMD which is attached to Handlebars.default
-          var method = 'Handlebars.' + (options.amd === true ? 'default.' : '') + 'registerPartial';
+          var method = 'Handlebars.' + (options.amd ? 'default.' : '') + 'registerPartial';
 
           if (options.partialsUseNamespace === true) {
             partials.push(method + '('+JSON.stringify(filename)+', '+nsInfo.namespace+'['+JSON.stringify(filename)+'] = '+compiled+');');
